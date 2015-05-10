@@ -1,31 +1,31 @@
-(function(window, document, undefined) {
+;(function(window, document, undefined) {
   'use strict';
 
   window.Site = {};
 
   Site.ask = {
 
-    // Initialize ask components.
+    // Initialize ask components
     init: function() {
       var self = this;
 
       self.events();
     },
 
-    // Cache ask DOM elements.
+    // Cache ask DOM elements
     elems: {
       ask_input: document.querySelector('#ask-input'),
       clear_input: document.querySelector('#clear-input'),
       suggest_container: document.querySelector('#suggestion-container')
     },
 
-    // @todo
-    // Rename map.
+    // TODO
+    // Rename map
     map: {
       'Question': 'answer'
     },
 
-    // Register events.
+    // Register events
     events: function() {
       var self = this;
 
@@ -40,7 +40,7 @@
     blur: function(e) {
       var self = this;
 
-      // DEBUG.
+      // DEBUG
       console.log('blur');
 
       if (!self.checkValid()) {
@@ -48,11 +48,11 @@
       }
     },
 
-    // Function to run on ask input focus.
+    // Function to run on ask input focus
     focus: function(e) {
       var self = this;
 
-      // DEBUG.
+      // DEDBUG
       console.log('focus');
 
       if (self.checkValid()) {
@@ -63,7 +63,7 @@
     // Function to run on ask input keyup
     keyup: function(e) {
       var self = this,
-          param = self.elems.ask_input.value.trim();
+        param = self.elems.ask_input.value.trim();
 
       if (self.checkValid()) {
         console.log('valid');
@@ -114,9 +114,8 @@
     },
 
     suggest: function(param) {
-      var self = this;
-
-      param = new RegExp('^' + param, 'gi');
+      var self = this,
+        param = new RegExp('^' + param, 'gi');
 
       // DEBUG
       console.log('Suggest');
@@ -124,6 +123,7 @@
 
       for (var prop in self.map) {
         if (param.test(prop)) {
+
           // DEBUG
           console.log('Match: ' + prop);
           console.log('Match url: ' + self.map[prop]);
@@ -165,7 +165,7 @@
         timer;
 
       function loop() {
-        if (counter !== 0) {
+        if (counter != 0) {
           self.elems.placeholder.innerHTML = self.elems.placeholder.innerHTML.slice(0, -1);
           counter--;
         } else {
@@ -182,9 +182,9 @@
 
     type: function(word, callback) {
       var self = this,
-          word_split = word.split(''),
-          counter = 0,
-          timer;
+        word_split = word.split(''),
+        counter = 0,
+        timer;
 
       function loop() {
         if (counter < word_split.length) {
@@ -208,14 +208,14 @@
 
     type_hints: function() {
       var self = this,
-          counter = 0, // Set counter to 0
-          timer;
+        counter = 0,
+        timer;
 
       self.typing = true;
 
       function loop() {
         if (self.typing) {
-          self.type(self.hints[counter]); // look for
+          self.type(self.hints[counter]);
 
           if (counter === self.hints.length - 1) {
             counter = 0;
@@ -229,7 +229,7 @@
 
       loop();
     }
-  };
+  }
 
   Site.ask.init();
   Site.placeholder.init();
